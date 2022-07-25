@@ -1,3 +1,4 @@
+#
 import re
 f = open("D:/\software\/regexp.txt","r")
 text = f.read()
