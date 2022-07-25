@@ -1,0 +1,11 @@
+import re
+f = open("D:/\software\/regexp.txt","r")
+text = f.read()
+search = re.findall('[0-9]*', text)
+finallist = []
+for i in search:
+    if i.strip():
+        finallist.append(i)
+converted = list(map(int,finallist))
+sum = sum(converted)
+print(sum)
