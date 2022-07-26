@@ -1,4 +1,4 @@
-#
+#use path of file located in other directory or some where,   remember to add escape charcater(/) for the path
 import re
 f = open("D:/\software\/regexp.txt","r")
 text = f.read()
@@ -7,6 +7,7 @@ finallist = []
 for i in search:
     if i.strip():
         finallist.append(i)
+#finallist = [finallist.append(i) for i in search if i.strip()]
 converted = list(map(int,finallist))
 sum = sum(converted)
 print(sum)
