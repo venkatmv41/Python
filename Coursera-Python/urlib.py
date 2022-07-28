@@ -11,8 +11,6 @@ ctx.verify_mode = ssl.CERT_NONE
 url = input('Enter - ')
 html = urllib.request.urlopen(url, context=ctx).read()
 soup = BeautifulSoup(html, 'html.parser')
-#print(soup.prettify())
-# Retrieve all of the anchor tags
 tags = soup('span')
 array =[]
 for tag in tags:
