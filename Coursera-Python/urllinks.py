@@ -1,7 +1,6 @@
 import urllib.request, urllib.parse, urllib.error
 from bs4 import BeautifulSoup
 import ssl
-import re
 
 # Ignore SSL certificate errors
 ctx = ssl.create_default_context()
