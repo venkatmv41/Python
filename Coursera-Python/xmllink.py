@@ -11,8 +11,6 @@ url = input('Enter location: ')
 x = 1
 while(x>0):
     if len(url) < 1: break
-    parms = dict()
-    parms['url'] = url
     uh = urllib.request.urlopen(url, context=ctx)
     data = uh.read()
     z = data.decode()
