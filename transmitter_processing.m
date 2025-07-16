@@ -75,11 +75,11 @@ function mod_order = get_modulation_order(mod_type)
             mod_order = 2;
         case 'QPSK'
             mod_order = 4;
-        case '16QAM'
+        case 'QAM16'
             mod_order = 16;
-        case '32QAM'
+        case 'QAM32'
             mod_order = 32;
-        case '64QAM'
+        case 'QAM64'
             mod_order = 64;
         otherwise
             error('Unsupported modulation type');
@@ -102,15 +102,15 @@ function symbols = modulate_symbols(data_matrix, mod_type)
                 constellation = [1+1j, -1+1j, -1-1j, 1-1j] / sqrt(2);
                 symbols(i) = constellation(decimal_val + 1);
                 
-            case '16QAM'
+            case 'QAM16'
                 constellation = qam_constellation(16);
                 symbols(i) = constellation(decimal_val + 1);
                 
-            case '32QAM'
+            case 'QAM32'
                 constellation = qam_constellation(32);
                 symbols(i) = constellation(decimal_val + 1);
                 
-            case '64QAM'
+            case 'QAM64'
                 constellation = qam_constellation(64);
                 symbols(i) = constellation(decimal_val + 1);
         end

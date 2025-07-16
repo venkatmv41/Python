@@ -26,7 +26,7 @@ fprintf('   MIMO Config: %dx%d\n', params.N_tx, params.N_rx);
 
 %% Test 3: Modulation Functions
 fprintf('3. Testing modulation schemes...\n');
-modulation_types = {'BPSK', 'QPSK', '16QAM', '32QAM', '64QAM'};
+modulation_types = {'BPSK', 'QPSK', 'QAM16', 'QAM32', 'QAM64'};
 
 for i = 1:length(modulation_types)
     mod_type = modulation_types{i};
@@ -100,11 +100,11 @@ function mod_order = get_modulation_order(mod_type)
             mod_order = 2;
         case 'QPSK'
             mod_order = 4;
-        case '16QAM'
+        case 'QAM16'
             mod_order = 16;
-        case '32QAM'
+        case 'QAM32'
             mod_order = 32;
-        case '64QAM'
+        case 'QAM64'
             mod_order = 64;
         otherwise
             error('Unsupported modulation type');

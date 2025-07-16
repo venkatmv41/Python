@@ -9,7 +9,7 @@ This project implements a complete MIMO-OFDM (Multiple-Input Multiple-Output Ort
 ### ✅ Core System Components
 - [x] **2x2 MIMO Configuration**: Two transmit and two receive antennas
 - [x] **OFDM Parameters**: 64-point FFT with 16-sample cyclic prefix
-- [x] **Modulation Schemes**: BPSK, QPSK, 16-QAM, 32-QAM, 64-QAM
+- [x] **Modulation Schemes**: BPSK, QPSK, QAM16, QAM32, QAM64
 - [x] **Pilot-Aided Estimation**: Block-type and comb-type pilot insertion
 - [x] **Multipath Channel**: Rayleigh fading with 4-path model
 - [x] **AWGN Noise**: Additive white Gaussian noise modeling
@@ -162,17 +162,17 @@ PSNR = 10 * log10(MAX_VAL^2 / MSE_image)
 - **Bits per Symbol**: 2
 - **Energy Normalization**: /√2
 
-### 16-QAM (16-Quadrature Amplitude Modulation)
+### QAM16 (16-Quadrature Amplitude Modulation)
 - **Constellation**: 4×4 grid {±1, ±3} + j{±1, ±3}
 - **Bits per Symbol**: 4
 - **Energy Normalization**: /√10
 
-### 32-QAM (32-Quadrature Amplitude Modulation)
+### QAM32 (32-Quadrature Amplitude Modulation)
 - **Constellation**: Cross-shaped constellation
 - **Bits per Symbol**: 5
 - **Energy Normalization**: /√20
 
-### 64-QAM (64-Quadrature Amplitude Modulation)
+### QAM64 (64-Quadrature Amplitude Modulation)
 - **Constellation**: 8×8 grid {±1, ±3, ±5, ±7}
 - **Bits per Symbol**: 6
 - **Energy Normalization**: /√42
@@ -189,9 +189,9 @@ PSNR = 10 * log10(MAX_VAL^2 / MSE_image)
 ### Modulation Robustness (Most to Least Robust)
 1. **BPSK**: Highest noise tolerance
 2. **QPSK**: Good balance
-3. **16-QAM**: Moderate performance
-4. **32-QAM**: Higher data rate, less robust
-5. **64-QAM**: Highest data rate, least robust
+3. **QAM16**: Moderate performance
+4. **QAM32**: Higher data rate, less robust
+5. **QAM64**: Highest data rate, least robust
 
 ### Channel Estimation MSE (Lowest to Highest)
 1. **MMSE**: Optimal estimation
@@ -251,9 +251,9 @@ load('mimo_ofdm_results.mat')  % Load results
 ### Image Transmission Results
 - `BPSK_Image_Transmission.png`: BPSK results
 - `QPSK_Image_Transmission.png`: QPSK results
-- `16QAM_Image_Transmission.png`: 16-QAM results
-- `32QAM_Image_Transmission.png`: 32-QAM results
-- `64QAM_Image_Transmission.png`: 64-QAM results
+- `QAM16_Image_Transmission.png`: QAM16 results
+- `QAM32_Image_Transmission.png`: QAM32 results
+- `QAM64_Image_Transmission.png`: QAM64 results
 
 ### Data Files
 - `mimo_ofdm_results.mat`: Complete simulation data
@@ -331,7 +331,7 @@ This MIMO-OFDM implementation successfully delivers:
 ✅ **Complete System Simulation**: Full transmitter-receiver chain  
 ✅ **Advanced Channel Estimation**: LS, MMSE, and LMSE techniques  
 ✅ **Comprehensive Analysis**: BER, SER, MSE, and image quality metrics  
-✅ **Multiple Modulations**: BPSK through 64-QAM support  
+✅ **Multiple Modulations**: BPSK through QAM64 support  
 ✅ **Image Transmission**: Real-world application demonstration  
 ✅ **Extensive Visualization**: Professional-quality plots and analysis  
 ✅ **Research-Grade Code**: Well-documented and extensible  

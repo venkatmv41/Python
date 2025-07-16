@@ -9,7 +9,7 @@ This MATLAB implementation provides a complete simulation of a MIMO-OFDM (Multip
 ### 🎯 Core Functionality
 - **MIMO Configuration**: 2x2 MIMO system (2 transmit, 2 receive antennas)
 - **OFDM Parameters**: 64-point FFT with 16-sample cyclic prefix
-- **Modulation Schemes**: BPSK, QPSK, 16-QAM, 32-QAM, 64-QAM
+- **Modulation Schemes**: BPSK, QPSK, QAM16, QAM32, QAM64
 - **Channel Estimation**: LS, MMSE, LMSE, and Perfect CSI
 - **Image Transmission**: Complete image transmission and reconstruction
 
@@ -102,9 +102,9 @@ H_LMSE = W * H_LS
 |------------|-------------|---------------------|---------------|
 | BPSK       | 1           | 2                   | ±1            |
 | QPSK       | 2           | 4                   | /√2           |
-| 16-QAM     | 4           | 16                  | /√10          |
-| 32-QAM     | 5           | 32                  | /√20          |
-| 64-QAM     | 6           | 64                  | /√42          |
+| QAM16      | 4           | 16                  | /√10          |
+| QAM32      | 5           | 32                  | /√20          |
+| QAM64      | 6           | 64                  | /√42          |
 
 ## Channel Model
 
@@ -127,9 +127,9 @@ H_LMSE = W * H_LS
 ### 2. Image Transmission Results
 - `BPSK_Image_Transmission.png`: BPSK image results
 - `QPSK_Image_Transmission.png`: QPSK image results
-- `16QAM_Image_Transmission.png`: 16-QAM image results
-- `32QAM_Image_Transmission.png`: 32-QAM image results
-- `64QAM_Image_Transmission.png`: 64-QAM image results
+- `QAM16_Image_Transmission.png`: QAM16 image results
+- `QAM32_Image_Transmission.png`: QAM32 image results
+- `QAM64_Image_Transmission.png`: QAM64 image results
 
 ### 3. Data Files
 - `mimo_ofdm_results.mat`: Complete simulation results
@@ -150,7 +150,7 @@ H_LMSE = W * H_LS
 - LS estimation MSE is highest
 
 ### 3. Modulation Comparison
-- Higher-order modulations (64-QAM) achieve higher data rates
+- Higher-order modulations (QAM64) achieve higher data rates
 - Lower-order modulations (BPSK, QPSK) are more robust
 - Trade-off between spectral efficiency and error performance
 

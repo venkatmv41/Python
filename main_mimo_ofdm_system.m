@@ -19,7 +19,7 @@ params.N_symbols = 100;      % Number of OFDM symbols
 params.pilot_spacing = 4;    % Pilot spacing for comb-type
 
 % Modulation schemes
-modulation_types = {'BPSK', 'QPSK', '16QAM', '32QAM', '64QAM'};
+modulation_types = {'BPSK', 'QPSK', 'QAM16', 'QAM32', 'QAM64'};
 modulation_orders = [2, 4, 16, 32, 64];
 
 %% Load and prepare test image

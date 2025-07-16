@@ -256,13 +256,13 @@ function constellation = get_constellation_points(mod_type)
         case 'QPSK'
             constellation = [1+1j, -1+1j, -1-1j, 1-1j] / sqrt(2);
             
-        case '16QAM'
+        case 'QAM16'
             real_part = [-3, -1, 1, 3];
             imag_part = [-3, -1, 1, 3];
             [R, I] = meshgrid(real_part, imag_part);
             constellation = (R(:) + 1j * I(:))' / sqrt(10);
             
-        case '32QAM'
+        case 'QAM32'
             constellation = zeros(1, 32);
             idx = 1;
             for i = -3:2:3
@@ -275,7 +275,7 @@ function constellation = get_constellation_points(mod_type)
             end
             constellation = constellation(1:32);
             
-        case '64QAM'
+        case 'QAM64'
             real_part = [-7, -5, -3, -1, 1, 3, 5, 7];
             imag_part = [-7, -5, -3, -1, 1, 3, 5, 7];
             [R, I] = meshgrid(real_part, imag_part);
@@ -289,11 +289,11 @@ function mod_order = get_modulation_order(mod_type)
             mod_order = 2;
         case 'QPSK'
             mod_order = 4;
-        case '16QAM'
+        case 'QAM16'
             mod_order = 16;
-        case '32QAM'
+        case 'QAM32'
             mod_order = 32;
-        case '64QAM'
+        case 'QAM64'
             mod_order = 64;
         otherwise
             error('Unsupported modulation type');
