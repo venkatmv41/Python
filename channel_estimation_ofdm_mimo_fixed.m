@@ -283,6 +283,20 @@ function [rx_signal, H_true] = mimo_channel_simulation(ofdm_tx, SNR_dB, params)
     
     % Store the frequency domain channel response
     H_true = repmat(H_freq, [1, 1, 1, params.N_symbols]);
+    % Create MIMO channel
+    mimo_channel = comm.MIMOChannel(...
+        'SampleRate', 1e6, ...
+        'PathDelays', [0 1e-6 2e-6 3e-6], ...
+        'AveragePathGains', [0 -3 -6 -9], ...
+        'NumTransmitAntennas', params.N_tx, ...
+        'NumReceiveAntennas', params.N_rx, ...
+        'MaximumDopplerShift', 10);
+    
+    % Reshape for transmission
+    tx_signal = reshape(ofdm_tx, [], params.N_tx);
+    
+    % Pass through channel
+    [rx_signal_ch, H_true] = mimo_channel(tx_signal);
     
     % Add AWGN
     signal_power = mean(abs(rx_signal_ch(:)).^2);
