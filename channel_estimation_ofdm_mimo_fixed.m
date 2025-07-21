@@ -239,20 +239,50 @@ end
 function [rx_signal, H_true] = mimo_channel_simulation(ofdm_tx, SNR_dB, params)
     % Simulate MIMO channel with AWGN
     
-    % Create MIMO channel
-    mimo_channel = comm.MIMOChannel(...
-        'SampleRate', 1e6, ...
-        'PathDelays', [0 1e-6 2e-6 3e-6], ...
-        'AveragePathGains', [0 -3 -6 -9], ...
-        'NumTransmitAntennas', params.N_tx, ...
-        'NumReceiveAntennas', params.N_rx, ...
-        'MaximumDopplerShift', 10);
-    
     % Reshape for transmission
     tx_signal = reshape(ofdm_tx, [], params.N_tx);
     
-    % Pass through channel
-    [rx_signal_ch, H_true] = mimo_channel(tx_signal);
+    % Create simple multipath MIMO channel manually
+    % This avoids the comm.MIMOChannel configuration issues
+    
+    % Generate channel matrix for each path
+    n_samples = size(tx_signal, 1);
+    path_delays_samples = [0, 1, 2, 3];  % Delays in samples
+    path_gains_linear = 10.^([0 -3 -6 -9]/20);  % Convert dB to linear
+    
+    % Initialize received signal
+    rx_signal_ch = zeros(n_samples, params.N_rx);
+    
+    % Store channel response for each subcarrier (frequency domain)
+    H_freq = zeros(params.N_subcarriers, params.N_rx, params.N_tx);
+    
+    % Generate random channel coefficients for each path
+    for path_idx = 1:length(path_delays_samples)
+        delay = path_delays_samples(path_idx);
+        gain = path_gains_linear(path_idx);
+        
+        % Random complex channel coefficients for this path
+        H_path = gain * (randn(params.N_rx, params.N_tx) + 1j*randn(params.N_rx, params.N_tx)) / sqrt(2);
+        
+        % Apply channel with delay
+        for rx_idx = 1:params.N_rx
+            for tx_idx = 1:params.N_tx
+                if delay + 1 <= n_samples
+                    rx_signal_ch(delay+1:end, rx_idx) = rx_signal_ch(delay+1:end, rx_idx) + ...
+                        H_path(rx_idx, tx_idx) * tx_signal(1:end-delay, tx_idx);
+                end
+            end
+        end
+        
+        % Build frequency domain channel response
+        for k = 1:params.N_subcarriers
+            phase_shift = exp(-1j * 2 * pi * (k-1) * delay / params.N_subcarriers);
+            H_freq(k, :, :) = squeeze(H_freq(k, :, :)) + H_path * phase_shift;
+        end
+    end
+    
+    % Store the frequency domain channel response
+    H_true = repmat(H_freq, [1, 1, 1, params.N_symbols]);
     
     % Add AWGN
     signal_power = mean(abs(rx_signal_ch(:)).^2);
