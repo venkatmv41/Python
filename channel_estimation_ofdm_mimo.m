@@ -209,24 +209,27 @@ function [ofdm_tx, pilot_positions, data_positions] = create_ofdm_signal(tx_symb
     n_data_per_symbol = length(data_positions);
     tx_symbols_reshaped = reshape(tx_symbols, n_data_per_symbol, params.N_tx, []);
     
-    % Initialize OFDM signal
-    ofdm_tx = zeros(params.N_subcarriers, params.N_tx, params.N_symbols);
+    % Initialize OFDM signal (frequency domain first)
+    ofdm_freq = zeros(params.N_subcarriers, params.N_tx, params.N_symbols);
     
     for sym_idx = 1:params.N_symbols
         for tx_idx = 1:params.N_tx
             % Insert pilots
-            ofdm_tx(pilot_positions, tx_idx, sym_idx) = pilot_symbols;
+            ofdm_freq(pilot_positions, tx_idx, sym_idx) = pilot_symbols;
             % Insert data
             if sym_idx <= size(tx_symbols_reshaped, 3)
-                ofdm_tx(data_positions, tx_idx, sym_idx) = tx_symbols_reshaped(:, tx_idx, sym_idx);
+                ofdm_freq(data_positions, tx_idx, sym_idx) = tx_symbols_reshaped(:, tx_idx, sym_idx);
             end
         end
     end
     
+    % Initialize time domain OFDM signal with cyclic prefix
+    ofdm_tx = zeros(params.N_subcarriers + params.N_cp, params.N_tx, params.N_symbols);
+    
     % Apply IFFT and add cyclic prefix
     for sym_idx = 1:params.N_symbols
         for tx_idx = 1:params.N_tx
-            ifft_out = ifft(ofdm_tx(:, tx_idx, sym_idx), params.N_subcarriers);
+            ifft_out = ifft(ofdm_freq(:, tx_idx, sym_idx), params.N_subcarriers);
             % Add cyclic prefix
             ofdm_tx(:, tx_idx, sym_idx) = [ifft_out(end-params.N_cp+1:end); ifft_out];
         end
